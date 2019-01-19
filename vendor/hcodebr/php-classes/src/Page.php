@@ -23,6 +23,7 @@ class Page
     public function __construct($opts = array(), $tpl_dir = "/views/")
     {
         $this->options = array_merge($this->defalts, $opts);
+        //Configuração necessária para usar o Rain\Tpl como renderizador do html
         $config = array(
             "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"] . $tpl_dir,
             "cache_dir"     => $_SERVER["DOCUMENT_ROOT"] . "/views-cache/",

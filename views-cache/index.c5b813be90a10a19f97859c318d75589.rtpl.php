@@ -31,6 +31,18 @@
     </div>
 </div> <!-- End promo area -->
 
+<div>
+    &lt;?php>
+        $ciphers             = openssl_get_cipher_methods();
+        $ciphers_and_aliases = openssl_get_cipher_methods(true);
+        $cipher_aliases      = array_diff($ciphers_and_aliases, $ciphers);
+
+        var_dump($ciphers);
+
+    ?&gt;
+    <h1></h1>
+</div>
+
 <div class="maincontent-area">
     <div class="zigzag-bottom"></div>
     <div class="container">

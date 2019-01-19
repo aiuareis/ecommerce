@@ -21,8 +21,9 @@ class Model
         switch ($method){
 
             case "get":
+                return $this->values[$fieldName];
                 break;
-                    $this->values[$fieldName];
+
 
             case "set":
                     $this->values[$fieldName] = $args[0];
