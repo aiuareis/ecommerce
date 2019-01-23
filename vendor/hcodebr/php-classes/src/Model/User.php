@@ -76,7 +76,7 @@ class User extends Model
     //Função para salvar um cadastro
     public function save(){
         $sql = new Sql();
-        $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)",
+        $results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)",
             array(
             ":desperson"=>$this->getDesperson(),
             ":deslogin"=>$this->getDeslogin(),
@@ -85,6 +85,7 @@ class User extends Model
             ":nrphone"=>$this->getNrphone(),
             ":inadmin"=>$this->getInadmin()
         ));
+        $this->setData($results[0]);
     }
     //Pegar dado de um usuário específico
     public function get($iduser){

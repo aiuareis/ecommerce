@@ -21,7 +21,8 @@ class Model
         switch ($method){
 
             case "get":
-                return $this->values[$fieldName];
+                //Quando a variável não existir será atribuido o valor NULL
+                return (isset($this->values[$fieldName])) ? $this->values[$fieldName] : NULL;
                 break;
 
 
