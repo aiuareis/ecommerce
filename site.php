@@ -32,7 +32,7 @@ $app->get("/categories/:idcategory", function ($idcategory){
     //Adiciona ao array pages as informações
     for($i=1; $i <= $pagination['pages']; $i++){
         array_push($pages, [
-            'link'=>'/categories/'. $category->getIdcategory() . '?pages' . $i,
+            'link'=>'/categories/'. $category->getIdcategory() . '?page=' . $i,
             'page'=>$i
         ]);
     }
