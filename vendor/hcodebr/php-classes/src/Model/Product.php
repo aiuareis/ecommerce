@@ -20,6 +20,17 @@ class Product extends Model
         return $sql->select("SELECT * FROM db_ecommerce.tb_products ORDER BY desproduct");
     }
 
+    public static function checkList($list)
+    {
+        foreach ($list as &$row) {
+            $p = new Product();
+            $p->setData($row);
+            $row = $p->getValues();
+        }
+        return $list;
+    }
+
+
     public function save(){
         $sql = new Sql();
         $results = $sql->select("CALL sp_products_save(:idproduct, :desproduct, :vlprice, :vlwidth, :vlheight, 
@@ -45,6 +56,33 @@ class Product extends Model
 
     }
 
+
+    public function checkPhoto()
+    {
+
+        if (file_exists(
+            $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR .
+            "res" . DIRECTORY_SEPARATOR .
+            "site" . DIRECTORY_SEPARATOR .
+            "img" . DIRECTORY_SEPARATOR .
+            "products" . DIRECTORY_SEPARATOR .
+            $this->getidproduct() . ".jpg"
+        )) {
+
+            $url = "/res/site/img/products/" . $this->getidproduct() . ".jpg";
+
+        } else {
+
+            $url = "/res/site/img/product.jpg";
+
+        }
+
+        return $this->setdesphoto($url);
+
+    }
+
+
+
     public function delete(){
         $sql = new Sql();
         $sql->query("DELETE FROM tb_products WHERE idproduct = :idproduct", array(
@@ -61,21 +99,6 @@ class Product extends Model
         return $values;
     }
 
-    public function checkPhoto(){
-        //Caminho de pasta do sistema operacional
-        if(file_exists($_SERVER['DOCUMENT_ROOT']. DIRECTORY_SEPARATOR .
-                        "res". DIRECTORY_SEPARATOR .
-                        "site". DIRECTORY_SEPARATOR .
-                        "img". DIRECTORY_SEPARATOR .
-                        "products". DIRECTORY_SEPARATOR .
-                        $this->getIdproduct() . "jpg")){
-            //URL que será chamada
-            $url = "/res/site/img/products/" . $this->getIdproduct() . "jpg";
-        } else{
-            $url = "/res/site/img/product.jpg";
-        }
-        return $this->setDesphoto($url);
-    }
     //Função para receber, converter e gravar o arquivo
     public function setPhoto($file){
         //Divide o nome da imagem no ponto
@@ -112,6 +135,8 @@ class Product extends Model
         //Carrega a foto no objeto
         $this->checkPhoto();
     }
+
+
 
 
 }
